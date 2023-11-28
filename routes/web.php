@@ -13,7 +13,7 @@ Route::get('/products', [ProductController::class, 'index'])->name('products.ind
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes
+| Web Routes - Comment
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
