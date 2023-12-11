@@ -5,3 +5,19 @@
 [x-cloak] {
     display: none;
 }
+
+.unstyled-link,
+.unstyled-link:hover {
+    color: inherit;
+    text-decoration: none;
+}
+
+.product-card {
+    transition: transform 0.5s; /* Animation */
+}
+
+.product-card:hover {
+    transform: scale(
+        1.01
+    ); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}

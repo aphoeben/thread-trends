@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Product;    
 use Illuminate\Support\Carbon;
 use File;
+use Illuminate\Support\Facades\View; // Import View
+
 
 class ProductController extends Controller
 {
@@ -85,5 +87,25 @@ class ProductController extends Controller
         $category->delete();
         return redirect('/category')->with('status','Item deleted successfully.');
     }
+
+    public function index()
+    {
+        $products = Product::all(); // Replace 'Product' with your actual model name
+    
+        return view('products', ['products' => $products]);
+    }
+
+    public function showMen()
+    {
+        $products = Product::where('section', 'M')->get();
+        return view('men', ['products' => $products]);
+    }
+
+    public function showWomen()
+    {
+        $products = Product::where('section', 'W')->get();
+        return view('women', ['products' => $products]);
+    }
+    
     
 }

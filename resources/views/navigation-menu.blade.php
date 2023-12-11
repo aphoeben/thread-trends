@@ -11,6 +11,15 @@
                 </div>
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    @guest
+                    <!-- Display these links for guests (not logged in) -->
+                    <x-nav-link class="text-white" href="{{ route('login') }}">
+                        {{ __('Login') }}
+                    </x-nav-link>
+                    <x-nav-link class="text-white" href="{{ route('register') }}">
+                        {{ __('Register') }}
+                    </x-nav-link>
+                    @else
                     @if(Auth::user()->is_admin)
                     <!-- Admin links -->
                     <x-nav-link class="text-white" href="/admin">
@@ -28,8 +37,21 @@
                     <x-nav-link class="text-white" href="{{ route('dashboard') }}">
                         {{ __('Home') }}
                     </x-nav-link>
+                    <x-nav-link class="text-white" href="/men">
+                        {{ __('Men') }}
+                    </x-nav-link>
+                    <x-nav-link class="text-white" href="/women">
+                        {{ __('Women') }}
+                    </x-nav-link>
+                    <x-nav-link class="text-white" href="{{ route('dashboard') }}">
+                        {{ __('About Us') }}
+                    </x-nav-link>
+                    <x-nav-link class="text-white" href="{{ route('dashboard') }}">
+                        {{ __('Contact Us') }}
+                    </x-nav-link>
                     <!-- Add more customer links here -->
                     @endif
+                    @endguest
                 </div>
 
             </div>

@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-
+use App\Models\Product;
 use App\Models\User;
 use App\Http\Controllers\ProductController;
 
@@ -12,14 +12,11 @@ Route::get('/', function () {
 })->name('welcome');
 
 // Customer routes
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
+Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::get('/dashboard', function () {
         $users = User::all();
-        return view('users', ['users' => $users]);
+        $products = Product::all(); // Retrieve products data here
+        return view('users', ['users' => $users, 'products' => $products]);
     })->name('dashboard');
 });
 
@@ -51,3 +48,6 @@ Route::group(['middleware' => ['auth:sanctum', 'is_admin']], function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+Route::get('/men', [ProductController::class, 'showMen']);
+Route::get('/women', [ProductController::class, 'showWomen']);
