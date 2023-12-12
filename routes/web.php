@@ -1,63 +1,60 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Auth;
+use App\Models\Product;
 use App\Models\User;
-
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\WishlistController;
 
 
-
-Route::get('/products', [ProductController::class, 'index'])->name('products.index');
-
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes - Comment
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
+// Guest and Authenticated User routes
 Route::get('/', function () {
-    $users = User::all();
-    return view('users', ['users' => $users]);
-});
+    return view('welcome');
+})->name('welcome');
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
+// Customer routes
+Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::get('/dashboard', function () {
         $users = User::all();
-        return view('users', ['users' => $users]);
+        $products = Product::all(); // Retrieve products data here
+        return view('users', ['users' => $users, 'products' => $products]);
     })->name('dashboard');
 });
 
-Route::get('/category', [ProductController::class, 'show']);
+// Admin routes
+Route::group(['middleware' => ['auth:sanctum', 'is_admin']], function () {
+    Route::get('/admin', function () {
+        // You can return a view for the admin dashboard here
+        return view('admin');
+    });
 
-Route::get('/category/{id}', function ($id) {
-    $item = App\Models\Product::where('id', '=', $id)->firstOrFail();
-    return view('category.category', compact('item'));
+    Route::get('/category', [ProductController::class, 'show']);
+    Route::get('/category/{id}', function ($id) {
+        $item = App\Models\Product::where('id', '=', $id)->firstOrFail();
+        return view('category.category', compact('item'));
+    });
+    Route::get('/create-new-category', [ProductController::class, 'create']);
+    Route::post('/save-record', [ProductController::class, 'save']);
+    Route::post('/submit', [ProductController::class, 'submit']);
+    Route::get('/category/edit/{id}', function ($id) {
+        $item = App\Models\Product::where('id', '=', $id)->firstOrFail();
+        return view('category.edit', compact('item'));
+    });
+    Route::put('/update-record/{id}', [ProductController::class,  'update']);
+    Route::delete('/delete/{id}', [ProductController::class, 'destroy']);
+    Route::get('/inventory', [ProductController::class, 'show'])->name('category.index');
 });
 
-Route::get('/create-new-category', [ProductController::class, 'create']);
+Auth::routes();
 
-Route::post('/save-record', [ProductController::class, 'save']);
-Route::post('/submit', [ProductController::class, 'submit']);
-
-
-Route::get('/category/edit/{id}', function ($id) {
-    $item = App\Models\Product::where('id', '=', $id)->firstOrFail();
-    return view('category.edit', compact('item'));
-});
-
-Route::put('/update-record/{id}', [ProductController::class,  'update']);
-
-Route::delete('/delete/{id}', [ProductController::class, 'destroy']);
-Route::get('/inventory', [ProductController::class, 'show'])->name('category.index');
-
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/men', [ProductController::class, 'showMen']);
+Route::get('/women', [ProductController::class, 'showWomen']);
+Route::post('/cart/add/{id}', [ProductController::class, 'addToCart'])->name('addToCart');
+Route::post('/cart/update/{id}', [ProductController::class, 'updateCart'])->name('updateCart');
+Route::post('/cart/remove/{id}', [ProductController::class, 'removeFromCart'])->name('removeFromCart');
+Route::get('/cart', [ProductController::class, 'showCart'])->name('showCart');
+Route::post('/wishlist/add/{product}', [WishlistController::class, 'add'])->name('wishlist.add');
+Route::post('/wishlist/remove/{product}', [WishlistController::class, 'remove'])->name('wishlist.remove');
+Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist');
