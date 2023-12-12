@@ -39,10 +39,13 @@
                 <div class="flex justify-between items-center mt-4">
                     <span style="color: #8d0606;" class="text-xl font-bold">₱{{ $product->price }}</span>
                     <div class="space-x-2">
-                        <button class="bg-red-800 hover:bg-red-900 active:bg-red-700 text-white px-4 py-2 rounded">
-                            Add to Cart
-                        </button>
-
+                        <form action="{{ route('addToCart', $product->id) }}" method="POST">
+                            @csrf
+                            <button type="submit"
+                                class="bg-red-800 hover:bg-red-900 active:bg-red-700 text-white px-4 py-2 rounded">
+                                Add to Cart
+                            </button>
+                        </form>
 
                     </div>
 

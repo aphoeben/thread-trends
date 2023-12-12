@@ -27,7 +27,6 @@ Route::group(['middleware' => ['auth:sanctum', 'is_admin']], function () {
         return view('admin');
     });
 
-    Route::get('/products', [ProductController::class, 'index'])->name('products.index');
     Route::get('/category', [ProductController::class, 'show']);
     Route::get('/category/{id}', function ($id) {
         $item = App\Models\Product::where('id', '=', $id)->firstOrFail();
@@ -48,6 +47,9 @@ Route::group(['middleware' => ['auth:sanctum', 'is_admin']], function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/men', [ProductController::class, 'showMen']);
 Route::get('/women', [ProductController::class, 'showWomen']);
+Route::post('/cart/add/{id}', [ProductController::class, 'addToCart'])->name('addToCart');
+Route::post('/cart/update/{id}', [ProductController::class, 'updateCart'])->name('updateCart');
+Route::post('/cart/remove/{id}', [ProductController::class, 'removeFromCart'])->name('removeFromCart');
+Route::get('/cart', [ProductController::class, 'showCart'])->name('showCart');
