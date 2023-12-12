@@ -52,6 +52,9 @@
                     <x-nav-link class="text-white" href="{{ route('showCart') }}">
                         {{ __('Cart') }}
                     </x-nav-link>
+                    <x-nav-link class="text-white" href="{{ route('wishlist') }}">
+                        {{ __('Wishlist') }}
+                    </x-nav-link>
                     @endif
                     @endguest
                 </div>

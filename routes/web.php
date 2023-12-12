@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
 use App\Models\User;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\WishlistController;
+
 
 // Guest and Authenticated User routes
 Route::get('/', function () {
@@ -53,3 +55,6 @@ Route::post('/cart/add/{id}', [ProductController::class, 'addToCart'])->name('ad
 Route::post('/cart/update/{id}', [ProductController::class, 'updateCart'])->name('updateCart');
 Route::post('/cart/remove/{id}', [ProductController::class, 'removeFromCart'])->name('removeFromCart');
 Route::get('/cart', [ProductController::class, 'showCart'])->name('showCart');
+Route::post('/wishlist/add/{product}', [WishlistController::class, 'add'])->name('wishlist.add');
+Route::post('/wishlist/remove/{product}', [WishlistController::class, 'remove'])->name('wishlist.remove');
+Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist');

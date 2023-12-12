@@ -109,101 +109,101 @@ class ProductController extends Controller
         return view('women', ['products' => $products]);
     }
 
-    // Adds a product to the cart
-    public function addToCart(Request $request, $id)
-    {
-        // Check if the user is authenticated
-        if (Auth::check()) {
-            // Check if the user is a customer (is_admin is 0)
-            if (Auth::user()->is_admin == 0) {
-                $product = Product::find($id);
-    
-                // Check if the product is already in the cart
-                $cartItem = CartModel::where('user_id', Auth::id())
-                    ->where('product_id', $product->id)
-                    ->first();
-    
-                if ($cartItem) {
-                    // If the product is already in the cart, increment the quantity
-                    $cartItem->quantity += 1;
-                    $cartItem->save();
-                } else {
-                    // If the product is not in the cart, add it
-                    CartModel::create([
-                        'user_id' => Auth::id(),
-                        'product_id' => $product->id,
-                        'quantity' => 1,
-                    ]);
-                }
-    
-                // Add the product to the session cart
-                Cart::add(array(
-                    'id' => $product->id,
-                    'name' => $product->name,
-                    'price' => $product->price,
-                    'quantity' => 1,
-                    'attributes' => array(),
-                    'associatedModel' => $product
-                ));
-    
-                return redirect()->route('showCart');
-            } else {
-                return redirect()->back()->withErrors(['You are not allowed to add items to the cart.']);
-            }
-        } else {
-            return redirect()->route('login');
-        }
-    }
-    
-// Updates the quantity of a product in the cart
-public function updateCart(Request $request, $id)
-{
-    // Update the quantity in the session cart
-    Cart::update($id, array(
-        'quantity' => array(
-            'relative' => false,
-            'value' => $request->quantity,
-        ),
-    ));
-
-    // Update the quantity in the carts table
-    $cartItem = CartModel::where('user_id', Auth::id())
-        ->where('product_id', $id)
-        ->first();
-
-    if ($cartItem) {
-        $cartItem->quantity = $request->quantity;
-        $cartItem->save();
-    }
-
-    return redirect()->route('showCart');
-}
-
-
-public function removeFromCart($id)
-{
-    // Remove the item from the session cart
-    Cart::remove($id);
-
-    // Remove the item from the carts table
-    $cartItem = CartModel::where('user_id', Auth::id())
-        ->where('product_id', $id)
-        ->first();
-
-    if ($cartItem) {
-        $cartItem->delete();
-    }
-
-    return redirect()->route('showCart');
-}
-
-// Shows the cart
-public function showCart()
-{
-    $cartItems = CartModel::where('user_id', Auth::id())->get();
-
-    // Pass the cart items to your view...
-    return view('cart', ['cartItems' => $cartItems]);
-}
+     // Adds a product to the cart
+     public function addToCart(Request $request, $id)
+     {
+         // Check if the user is authenticated
+         if (Auth::check()) {
+             // Check if the user is a customer (is_admin is 0)
+             if (Auth::user()->is_admin == 0) {
+                 $product = Product::find($id);
+     
+                 // Check if the product is already in the cart
+                 $cartItem = CartModel::where('user_id', Auth::id())
+                     ->where('product_id', $product->id)
+                     ->first();
+     
+                 if ($cartItem) {
+                     // If the product is already in the cart, increment the quantity
+                     $cartItem->quantity += 1;
+                     $cartItem->save();
+                 } else {
+                     // If the product is not in the cart, add it
+                     CartModel::create([
+                         'user_id' => Auth::id(),
+                         'product_id' => $product->id,
+                         'quantity' => 1,
+                     ]);
+                 }
+     
+                 // Add the product to the session cart
+                 Cart::add(array(
+                     'id' => $product->id,
+                     'name' => $product->name,
+                     'price' => $product->price,
+                     'quantity' => 1,
+                     'attributes' => array(),
+                     'associatedModel' => $product
+                 ));
+     
+                 return redirect()->route('showCart');
+             } else {
+                 return redirect()->back()->withErrors(['You are not allowed to add items to the cart.']);
+             }
+         } else {
+             return redirect()->route('login');
+         }
+     }
+     
+ // Updates the quantity of a product in the cart
+ public function updateCart(Request $request, $id)
+ {
+     // Update the quantity in the session cart
+     Cart::update($id, array(
+         'quantity' => array(
+             'relative' => false,
+             'value' => $request->quantity,
+         ),
+     ));
+ 
+     // Update the quantity in the carts table
+     $cartItem = CartModel::where('user_id', Auth::id())
+         ->where('product_id', $id)
+         ->first();
+ 
+     if ($cartItem) {
+         $cartItem->quantity = $request->quantity;
+         $cartItem->save();
+     }
+ 
+     return redirect()->route('showCart');
+ }
+ 
+ 
+ public function removeFromCart($id)
+ {
+     // Remove the item from the session cart
+     Cart::remove($id);
+ 
+     // Remove the item from the carts table
+     $cartItem = CartModel::where('user_id', Auth::id())
+         ->where('product_id', $id)
+         ->first();
+ 
+     if ($cartItem) {
+         $cartItem->delete();
+     }
+ 
+     return redirect()->route('showCart');
+ }
+ 
+ // Shows the cart
+ public function showCart()
+ {
+     $cartItems = CartModel::where('user_id', Auth::id())->get();
+ 
+     // Pass the cart items to your view...
+     return view('cart', ['cartItems' => $cartItems]);
+ }
 
 }
