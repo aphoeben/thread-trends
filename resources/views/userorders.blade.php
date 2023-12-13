@@ -16,7 +16,7 @@
     <div class="container mx-auto px-4">
         <h1 class="text-2xl font-semibold mb-4">My Orders</h1>
         <div class="md:w-full">
-            @foreach($orders as $order)
+            @forelse($orders as $order)
             <div style="background-color: #212529; color: white;" class="rounded-lg shadow-md p-6 mb-4">
                 <h2 class="text-2xl text-red-800 font-semibold ml-3">Order #{{ $order->id }}</h2>
                 <hr class="my-2">
@@ -42,7 +42,8 @@
                                         {{$item->product->section}}</span>
                                 </div>
                             </td>
-                            <td class="py-4" style="color: white;">₱{{ number_format($item->product->price, 2) }}</td>
+                            <td class="py-4" style="color: white;">₱{{ number_format($item->product->price, 2) }}
+                            </td>
                             <td class="py-4" style="color: white;">{{ $item->quantity }}</td>
                             <td class="py-4" style="color: white;">
                                 ₱{{ number_format($item->quantity * $item->product->price) }}
@@ -76,7 +77,9 @@
                     </tbody>
                 </table>
             </div>
-            @endforeach
+            @empty
+            <p class=" text-gray-500 text-center m-64">You have no orders.</p>
+            @endforelse
         </div>
     </div>
 </div>
