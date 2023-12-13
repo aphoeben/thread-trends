@@ -236,6 +236,11 @@ public function save(Request $request)
  }
  public function checkout()
 {
+    // Check if the cart is empty
+    if (CartModel::isEmpty()) {
+        return redirect()->back()->withErrors(['Your cart is empty.']);
+    }
+
     $cartItems = CartModel::where('user_id', Auth::id())->get();
     $subtotal = $this->getSubTotal();
     $platformFee = $subtotal * 0.002;

@@ -1,3 +1,19 @@
+<style>
+button:disabled {
+    background-color: #555;
+    /* Change color to a darker shade when disabled */
+    cursor: not-allowed;
+    /* Show a "not-allowed" cursor when disabled */
+    opacity: 0.6;
+    /* Decrease opacity when disabled */
+}
+
+th {
+    color: #ffffff;
+    /* Change this to the color you want */
+}
+</style>
+
 @extends('layouts.app')
 
 @section('content')
@@ -31,7 +47,7 @@
                                 </td>
                                 <td class="py-4" style="color: white;">
                                     ₱{{ number_format($item->associatedModel->price) }}</td>
-                                <td class="py-4" style="color: white;">
+                                <td class="pt-4" style="color: white;">
                                     <div class="flex items-center">
                                         <form action="{{ route('updateCart', $item->id) }}" method="POST">
                                             @csrf
@@ -47,7 +63,8 @@
                                 <td class="py-4" style="color: white;">
                                     ₱{{ number_format((float)str_replace(',', '', $item->associatedModel->price) * (int)$item->quantity, 2) }}
                                 </td>
-                                <td class="py-4" style="color: white;">
+                                <td class="pt-4" style="color: white;">
+
                                     <form action="{{ route('removeFromCart', $item->id) }}" method="POST">
                                         @csrf
                                         <button type="submit" style="color: #8d0606;">
@@ -86,9 +103,9 @@
 
 
 
+                    <button id="checkout-button" class="bg-red-800 text-white py-2 px-4 rounded-lg mt-4 w-full"
+                        {{ Cart::isEmpty() ? 'disabled' : '' }}>Checkout</button>
 
-                    <button id="checkout-button"
-                        class="bg-red-800 text-white py-2 px-4 rounded-lg mt-4 w-full">Checkout</button>
 
                 </div>
 
@@ -109,20 +126,21 @@
                 </h3>
             </div>
             <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                <form action="{{ route('checkout') }}" method="POST">
+                <form action="{{ route('checkout') }}" method="POST" style="margin: 0; padding: 0;">
                     @csrf
                     <button type="submit"
-                        class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
+                        class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-800 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
                         id="confirm-button">
                         Place Order
                     </button>
                 </form>
                 <button type="button"
-                    class=" w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:w-auto sm:text-sm"
+                    class=" w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2  bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:w-auto sm:text-sm"
                     id="cancel-button" style="margin-top: 0;">
                     Cancel
                 </button>
             </div>
+
         </div>
     </div>
 </div>
