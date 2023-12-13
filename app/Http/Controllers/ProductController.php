@@ -30,30 +30,33 @@ class ProductController extends Controller
         return view('category.create', ['categories' => $categories]);
     }
 
-    // Saves the record
-    public function save(Request $request)
-    {
-        $this->validate(request(), [
-            'name' => 'required|min:1|max:255',
-            'description' => 'required|min:1|max:255',
-            'price' => 'required|min:1|max:255',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
-        ]);
+  // Saves the record
+public function save(Request $request)
+{
+    $this->validate(request(), [
+        'name' => 'required|min:1|max:255',
+        'description' => 'required|min:1|max:255',
+        'price' => 'required|min:1|max:255',
+        'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+    ]);
 
-        $fileName = time() . '.' . $request->image->extension();
-        $request->image->storeAs('public/products', $fileName);
+    $file = $request->file('image');
+    $extension = $file->getClientOriginalExtension();
+    $fileName = time() . '.' . $extension;
+    $file->move('storage/products', $fileName);
 
-        $category = new Product;
-        $category->name = $request->name;
-        $category->description = $request->description;
-        $category->price = $request->price;
-        $category->image = $fileName;
-        $category->section = $request->section;
-        $category->qty = $request->qty;
-        $category->save();
+    $category = new Product;
+    $category->name = $request->name;
+    $category->description = $request->description;
+    $category->price = $request->price;
+    $category->image = $fileName;
+    $category->section = $request->section;
+    $category->qty = $request->qty;
+    $category->save();
 
-        return redirect('/category')->with('status', 'Item added.');
-    }
+    return redirect('/category')->with('status', 'Item added.');
+}
+
 
     // Edits the record
     public function update(Request $request, $id)

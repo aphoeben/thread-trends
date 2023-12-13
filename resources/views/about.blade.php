@@ -63,3 +63,7 @@
 
 
 @endsection
+
+@section('contact')
+@include('contactbanner')
+@endsection

@@ -46,3 +46,7 @@
     </div>
 </div>
 @endsection
+
+@section('contact')
+@include('contactbanner')
+@endsection

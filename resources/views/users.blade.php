@@ -43,5 +43,9 @@
     <!-- Include the products component and pass $products -->
 
     @include('products', ['products' => $products])
+
 </div>
+@endsection
+@section('contact')
+@include('contactbanner')
 @endsection

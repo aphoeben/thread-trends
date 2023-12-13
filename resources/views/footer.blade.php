@@ -13,10 +13,10 @@
                     <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Resources</h2>
                     <ul class="text-gray-600 dark:text-gray-400 pl-0">
                         <li class="mb-4">
-                            <a href="https://flowbite.com" class="unstyled-link">Flowbite</a>
+                            <a href="https://flowbite.com" class="unstyled-link">Threads</a>
                         </li>
                         <li>
-                            <a href="https://tailwindcss.com/" class="unstyled-link">Tailwind CSS</a>
+                            <a href="https://tailwindcss.com/" class="unstyled-link">Fashion</a>
                         </li>
                     </ul>
                 </div>
@@ -24,10 +24,10 @@
                     <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Follow us</h2>
                     <ul class="text-gray-600 dark:text-gray-400 pl-0">
                         <li class="mb-4">
-                            <a href="https://github.com/themesberg/flowbite" class="unstyled-link">Github</a>
+                            <a href="https://github.com/themesberg/flowbite" class="unstyled-link">Facebook</a>
                         </li>
                         <li>
-                            <a href="https://discord.gg/4eeurUVvTy" class="unstyled-link">Discord</a>
+                            <a href="https://discord.gg/4eeurUVvTy" class="unstyled-link">Instagram</a>
                         </li>
                     </ul>
                 </div>

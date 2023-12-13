@@ -51,7 +51,8 @@ Route::group(['middleware' => ['auth:sanctum', 'is_admin']], function () {
     Route::put('/update-record/{id}', [ProductController::class,  'update']);
     Route::delete('/delete/{id}', [ProductController::class, 'destroy']);
     Route::get('/inventory', [ProductController::class, 'show'])->name('category.index');
-    Route::get('/orders', [OrderController::class, 'adminOrders'])->name('admin.orders');
+    Route::get('/messages', [ContactController::class, 'showMessages'])->name('admin.messages');
+        Route::get('/orders', [OrderController::class, 'adminOrders'])->name('admin.orders');
     Route::post('/orders/complete/{id}', [OrderController::class, 'complete'])->name('admin.orders.complete');
     Route::post('/orders/cancel/{id}', [OrderController::class, 'cancel'])->name('admin.orders.cancel');
 

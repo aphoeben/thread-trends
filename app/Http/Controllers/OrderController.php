@@ -15,7 +15,7 @@ class OrderController extends Controller
     }
     public function adminOrders()
     {
-        $orders = Order::paginate(10); // Display 10 orders per page
+        $orders = Order::paginate(5); // Display 10 orders per page
         return view('orders', ['orders' => $orders]);
     }
     public function complete($id)

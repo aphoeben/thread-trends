@@ -30,5 +30,15 @@ public function showForm()
     return view('customer.contact');
 }
 
+public function showMessages()
+{
+    // Get all messages from the database
+    $contacts = Contact::paginate(5);
+
+    // Pass the messages to the view
+    return view('contacttable', ['contacts' => $contacts]);
+}
+
+
 
 }
