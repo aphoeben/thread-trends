@@ -1,14 +1,32 @@
 @extends('layouts.app')
 
 @section('content')
-<h4> {{ $item->name }} Details: </h4>
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-dark text-white">
+            <h1 class="mb-0">{{ $item->name }} Details</h1>
+        </div>
 
-<img src="{{ asset('storage/products/'.$item->image) }}">
-<p> Name: {{ $item->name }} </p>
-<p> Description: {{ $item->description }} </p>
-<p> Price: {{ $item->price }} </p>
-<p> Section: {{ $item->section }} </p>
-<p> QTY: {{ $item->qty }} </p>
-<a href="/category/edit/{{ $item->id }}" class="btn btn-lg btn-success mt-3" type="button">Edit</a>
-<a href="{{ route('category.index') }}" class="btn btn-lg btn-secondary mt-3">Back</a>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="{{ asset('storage/products/'.$item->image) }}" class="img-fluid" alt="{{ $item->name }}">
+                </div>
+
+                <div class="col-md-8">
+                    <p><strong>Name:</strong> {{ $item->name }}</p>
+                    <p><strong>Description:</strong> {{ $item->description }}</p>
+                    <p><strong>Price:</strong> {{ $item->price }}</p>
+                    <p><strong>Section:</strong> {{ $item->section }}</p>
+                    <p><strong>Quantity:</strong> {{ $item->qty }}</p>
+
+                    <div class="mt-3">
+                        <a href="/category/edit/{{ $item->id }}" class="btn btn-success">Edit</a>
+                        <a href="{{ route('category.index') }}" class="btn btn-secondary">Back</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

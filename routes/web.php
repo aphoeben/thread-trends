@@ -6,6 +6,8 @@ use App\Models\Product;
 use App\Models\User;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\WishlistController;
+use App\Http\Controllers\ContactController;
+
 
 
 // Guest and Authenticated User routes
@@ -20,7 +22,14 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         $products = Product::all(); // Retrieve products data here
         return view('users', ['users' => $users, 'products' => $products]);
     })->name('dashboard');
+    Route::get('about', function () {
+        return view('about');
+    })->name('about');
+    Route::get('customer/contact', function () {
+        return view('/customer/contact');
+    })->name('/customer/contact');
 });
+
 
 // Admin routes
 Route::group(['middleware' => ['auth:sanctum', 'is_admin']], function () {
@@ -46,6 +55,7 @@ Route::group(['middleware' => ['auth:sanctum', 'is_admin']], function () {
     Route::get('/inventory', [ProductController::class, 'show'])->name('category.index');
 });
 
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -58,3 +68,6 @@ Route::get('/cart', [ProductController::class, 'showCart'])->name('showCart');
 Route::post('/wishlist/add/{product}', [WishlistController::class, 'add'])->name('wishlist.add');
 Route::post('/wishlist/remove/{product}', [WishlistController::class, 'remove'])->name('wishlist.remove');
 Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist');
+
+Route::get('/contact', [ContactController::class, 'showForm'])->name('contact.form');
+Route::post('/contact', [ContactController::class, 'submitForm'])->name('contact.submit');

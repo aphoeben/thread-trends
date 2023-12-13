@@ -43,10 +43,10 @@
                     <x-nav-link class="text-white" href="/women">
                         {{ __('Women') }}
                     </x-nav-link>
-                    <x-nav-link class="text-white" href="{{ route('dashboard') }}">
+                    <x-nav-link class="text-white" href="{{ route('about') }}">
                         {{ __('About Us') }}
                     </x-nav-link>
-                    <x-nav-link class="text-white" href="{{ route('dashboard') }}">
+                    <x-nav-link class="text-white" href="{{ route('/customer/contact') }}">
                         {{ __('Contact Us') }}
                     </x-nav-link>
                     <x-nav-link class="text-white" href="{{ route('showCart') }}">
