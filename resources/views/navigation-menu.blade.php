@@ -70,15 +70,16 @@
                     <x-nav-link class="text-white unstyled-link" href="{{ route('contact.form') }}">
                         {{ __('Contact Us') }}
                     </x-nav-link>
-                    <x-nav-link class="text-white unstyled-link" href="{{ route('userorders') }}">
-                        {{ __('Orders') }}
+                    <x-nav-link class="text-red-800 unstyled-link" href="{{ route('userorders') }}">
+                        <i class="fas fa-box-open text-red-800"></i>
                     </x-nav-link>
-                    <x-nav-link class="text-white unstyled-link" href="{{ route('showCart') }}">
-                        {{ __('Cart') }}
+                    <x-nav-link class="text-red-800 unstyled-link" href="{{ route('showCart') }}">
+                        <i class="fas fa-shopping-cart text-red-800"></i>
                     </x-nav-link>
-                    <x-nav-link class="text-white unstyled-link" href="{{ route('wishlist') }}">
-                        {{ __('Wishlist') }}
+                    <x-nav-link class="text-red-800 unstyled-link" href="{{ route('wishlist') }}">
+                        <i class="fas fa-heart text-red-800"></i>
                     </x-nav-link>
+
                     @endif
                     @endguest
                 </div>
@@ -113,28 +114,11 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <!-- Account Management -->
-                        <div class="block px-4 py-2 text-xs text-gray-400">
-                            {{ __('Manage Account') }}
-                        </div>
-
-                        <x-dropdown-link class="unstyled-link" href="{{ route('profile.show') }}">
-                            {{ __('Profile') }}
-                        </x-dropdown-link>
-
-                        @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
-                        <x-dropdown-link class="unstyled-link" href="{{ route('api-tokens.index') }}">
-                            {{ __('API Tokens') }}
-                        </x-dropdown-link>
-                        @endif
-
-                        <div class="border-t border-gray-200"></div>
 
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}" x-data="">
                             @csrf
-
-                            <x-dropdown-link class="unstyled-link" href="{{ route('logout') }}"
+                            <x-dropdown-link class="unstyled-link mt-2 mb-0" href="{{ route('logout') }}"
                                 @click.prevent="$root.submit();">
                                 {{ __('Log Out') }}
                             </x-dropdown-link>

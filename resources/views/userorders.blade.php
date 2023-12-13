@@ -12,7 +12,7 @@
     text-align: left;
 }
 </style>
-<div class="py-8" style=" display: flex; justify-content: center;">
+<div class="bg-gray-100  py-8">
     <div class="container mx-auto px-4">
         <h1 class="text-2xl font-semibold mb-4">My Orders</h1>
         <div class="md:w-full">

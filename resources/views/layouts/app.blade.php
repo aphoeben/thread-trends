@@ -37,6 +37,8 @@
 
     <div class="min-h-screen bg-gray-100">
         @livewire('navigation-menu')
+        @yield('banner')
+
 
         <!-- Page Heading -->
         @if (isset($header))

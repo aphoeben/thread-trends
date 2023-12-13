@@ -96,7 +96,7 @@
             </table>
 
             <button class="no-print bg-red-800 text-white py-2 px-4 rounded-lg mt-4 w-full"
-                onclick="location.href='/dashboard'">Continue Shopping</button>
+                onclick="location.href='/'">Continue Shopping</button>
 
 
         </div>

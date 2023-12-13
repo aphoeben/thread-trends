@@ -2,8 +2,15 @@
 
 @section('content')
 <div class="container mx-auto px-4 py-6">
-    <div class="relative flex items-center mb-4">
-        <h1 class="text-4xl font-bold text-center w-full">OUR WHOLE SELECTION</h1>
+    <div class="relative flex items-center ">
+        <div class="mb-6 max-w-3xl text-center sm:text-center md:mx-auto md:mb-12">
+            <p class="text-base font-semibold uppercase tracking-wide text-red-600 ">
+                fashion
+            </p>
+            <h2 class="font-heading mb-4 font-bold tracking-tight text-gray-900  text-3xl sm:text-5xl">
+                OUR SELECTION </h2>
+
+        </div>
         <div class="absolute right-0 inline-flex rounded-md shadow-sm" role="group">
             <a href="/men"
                 class="px-4 py-2 text-sm font-medium bg-red-800 hover:bg-red-900 active:bg-red-700 text-white border border-gray-200 rounded-s-lg unstyled-link ">
