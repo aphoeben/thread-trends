@@ -22,7 +22,7 @@
                     </svg></div>
                 <div class="px-4 text-gray-700">
                     <h3 class="text-sm tracking-wider">Total Users</h3>
-                    <p class="text-3xl">{{ \App\Models\User::count() }}</p>
+                    <p class="text-7xl">{{ \App\Models\User::count() }}</p>
                 </div>
             </div>
             <div class="flex items-center bg-white border rounded-sm overflow-hidden shadow">
@@ -34,7 +34,7 @@
                     </svg></div>
                 <div class="px-4 text-gray-700">
                     <h3 class="text-sm tracking-wider">Total Orders</h3>
-                    <p class="text-3xl">{{ \App\Models\Order::count() }}</p>
+                    <p class="text-7xl">{{ \App\Models\Order::count() }}</p>
                 </div>
             </div>
             <div class="flex items-center bg-white border rounded-sm overflow-hidden shadow">
@@ -46,7 +46,7 @@
                     </svg></div>
                 <div class="px-4 text-gray-700">
                     <h3 class="text-sm tracking-wider">Customer Messages</h3>
-                    <p class="text-3xl">{{ \App\Models\Contact::count() }}</p>
+                    <p class="text-7xl">{{ \App\Models\Contact::count() }}</p>
                 </div>
             </div>
             <div class="flex items-center bg-white border rounded-sm overflow-hidden shadow">
@@ -58,7 +58,7 @@
                     </svg></div>
                 <div class="px-4 text-gray-700">
                     <h3 class="text-sm tracking-wider">Product Listings</h3>
-                    <p class="text-3xl">{{ \App\Models\Product::count() }}</p>
+                    <p class="text-7xl">{{ \App\Models\Product::count() }}</p>
                 </div>
             </div>
         </div>
