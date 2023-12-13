@@ -6,6 +6,8 @@ use App\Models\Product;
 use App\Models\User;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\WishlistController;
+use App\Http\Controllers\OrderController;
+
 
 
 // Guest and Authenticated User routes
@@ -59,3 +61,4 @@ Route::post('/wishlist/add/{product}', [WishlistController::class, 'add'])->name
 Route::post('/wishlist/remove/{product}', [WishlistController::class, 'remove'])->name('wishlist.remove');
 Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist');
 Route::post('/checkout', [ProductController::class, 'checkout'])->name('checkout');
+Route::get('/userorders', [OrderController::class, 'userOrders'])->name('userorders');

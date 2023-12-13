@@ -49,6 +49,9 @@
                     <x-nav-link class="text-white" href="{{ route('dashboard') }}">
                         {{ __('Contact Us') }}
                     </x-nav-link>
+                    <x-nav-link class="text-white" href="{{ route('userorders') }}">
+                        {{ __('Orders') }}
+                    </x-nav-link>
                     <x-nav-link class="text-white" href="{{ route('showCart') }}">
                         {{ __('Cart') }}
                     </x-nav-link>

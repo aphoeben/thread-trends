@@ -261,5 +261,6 @@ class ProductController extends Controller
     return view('checkout', ['order_id' => $order->id, 'subtotal' => $subtotal, 'platformFee' => $platformFee, 'total' => $total]);
 }
 
+
  
 }
