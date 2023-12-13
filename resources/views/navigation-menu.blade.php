@@ -8,7 +8,17 @@
                     <a href="{{ route('dashboard') }}">
                         <img src="{{ URL::asset('/Logo white.png') }}" width="100">
                     </a>
+
+                    @auth
+                    @if(Auth::user()->is_admin)
+                    <p class="ml-0 text-base font-bold uppercase tracking-wide text-red-800 mt-3">
+                        Admin Panel
+                    </p>
+                    @endif
+                    @endauth
+
                 </div>
+
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     @guest
