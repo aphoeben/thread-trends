@@ -18,6 +18,7 @@
                         </thead>
                         <tbody>
                             @foreach(Cart::getContent() as $item)
+
                             <tr>
                                 <td class="py-4" style="color: white;">
                                     <div class="flex items-center">
@@ -83,11 +84,11 @@
                         <span class="font-semibold">₱{{ number_format($total, 2) }}</span>
                     </div>
 
-                    <form action="{{ route('checkout') }}" method="POST">
-                        @csrf
-                        <button type="submit"
-                            class="bg-red-800 text-white py-2 px-4 rounded-lg mt-4 w-full">Checkout</button>
-                    </form>
+
+
+
+                    <button id="checkout-button"
+                        class="bg-red-800 text-white py-2 px-4 rounded-lg mt-4 w-full">Checkout</button>
 
                 </div>
 
@@ -95,4 +96,49 @@
         </div>
     </div>
 </div>
+
+<div id="dialog" class="fixed z-10 inset-0 overflow-y-auto hidden" aria-labelledby="modal-title" role="dialog"
+    aria-modal="true">
+    <div class="flex items-center justify-center min-h-screen">
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+        <div
+            class="bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+            <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+                    Are you sure you want to place an order?
+                </h3>
+            </div>
+            <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                <form action="{{ route('checkout') }}" method="POST">
+                    @csrf
+                    <button type="submit"
+                        class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
+                        id="confirm-button">
+                        Place Order
+                    </button>
+                </form>
+                <button type="button"
+                    class=" w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:w-auto sm:text-sm"
+                    id="cancel-button" style="margin-top: 0;">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.querySelector('#checkout-button').addEventListener('click', function() {
+    document.querySelector('#dialog').classList.remove('hidden');
+});
+
+document.querySelector('#confirm-button').addEventListener('click', function() {
+    document.querySelector('#dialog').classList.add('hidden');
+    // Add your checkout logic here
+});
+
+document.querySelector('#cancel-button').addEventListener('click', function() {
+    document.querySelector('#dialog').classList.add('hidden');
+});
+</script>
 @endsection

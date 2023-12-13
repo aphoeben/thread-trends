@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\File;
 use Darryldecode\Cart\Facades\CartFacade as Cart;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Cart as CartModel; // Use the Cart model
+use App\Models\OrderItem;
+use App\Models\Order;
+
 
 
 
@@ -228,15 +231,35 @@ class ProductController extends Controller
  
      return $subtotal;
  }
- 
  public function checkout()
- {
-     $cartItems = CartModel::where('user_id', Auth::id())->get();
-     $subtotal = $this->getSubTotal();
-     $platformFee = $subtotal * 0.002;
-     $total = $subtotal + $platformFee + 50;
- 
-     return view('checkout', ['cartItems' => $cartItems, 'subtotal' => $subtotal, 'platformFee' => $platformFee, 'total' => $total]);
- }
+{
+    $cartItems = CartModel::where('user_id', Auth::id())->get();
+    $subtotal = $this->getSubTotal();
+    $platformFee = $subtotal * 0.002;
+    $total = $subtotal + $platformFee + 50;
+
+    // Create a new order
+    $order = new Order;
+    $order->user_id = Auth::id();
+    $order->total_price = $total;
+    $order->save();
+
+    // Iterate over cart items and store each in the order_items table
+    foreach ($cartItems as $item) {
+        $orderItem = new OrderItem; // Assuming you have an OrderItem model
+        $orderItem->order_id = $order->id;
+        $orderItem->product_id = $item->product_id;
+        $orderItem->quantity = $item->quantity;
+        $orderItem->save();
+    }
+
+    // Clear the cart after checkout
+    Cart::clear();
+    CartModel::where('user_id', Auth::id())->delete();
+
+    // Pass the order_id to the view
+    return view('checkout', ['order_id' => $order->id, 'subtotal' => $subtotal, 'platformFee' => $platformFee, 'total' => $total]);
+}
+
  
 }

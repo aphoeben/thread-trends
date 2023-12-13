@@ -34,7 +34,13 @@
         <div style="background-color: #212529; color: white;" class="rounded-lg shadow-md p-6">
             <div class="shrink-0 flex items-center justify-between">
                 <img src="{{ URL::asset('/Logo white.png') }}" width="80">
-                <h2 class="text-2xl font-semibold mb-4">INVOICE</h2>
+                <div class="flex">
+                    <button class="no-print" onclick="window.print()">
+                        <i class="fas fa-print text-red-800 fa-lg"></i>
+                    </button>
+
+                    <h2 class="text-2xl font-semibold ml-3">INVOICE</h2>
+                </div>
             </div>
 
             <hr class="my-2">
@@ -45,13 +51,18 @@
                     <th>Quantity</th>
                     <th>Price</th>
                 </tr>
-                @foreach(Cart::getContent() as $item)
+                @php
+                $order = \App\Models\Order::find($order_id);
+                @endphp
+
+                @foreach($order->orderItems as $item)
                 <tr>
-                    <td class="pb-4">{{ $item->name }}</td>
+                    <td class="pb-4">{{ $item->product->name }}</td>
                     <td class="pb-4">{{ $item->quantity }}</td>
-                    <td class="pb-4">₱{{ number_format($item->associatedModel->price, 2) }}</td>
+                    <td class="pb-4">₱{{ number_format($item->product->price, 2) }}</td>
                 </tr>
                 @endforeach
+
                 <tr>
                     <td colspan="3">
                         <hr class="my-2">
@@ -85,7 +96,9 @@
             </table>
 
             <button class="no-print bg-red-800 text-white py-2 px-4 rounded-lg mt-4 w-full"
-                onclick="window.print()">Print Invoice</button>
+                onclick="location.href='/dashboard'">Continue Shopping</button>
+
+
         </div>
     </div>
 </div>
