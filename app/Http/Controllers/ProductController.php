@@ -229,4 +229,14 @@ class ProductController extends Controller
      return $subtotal;
  }
  
+ public function checkout()
+ {
+     $cartItems = CartModel::where('user_id', Auth::id())->get();
+     $subtotal = $this->getSubTotal();
+     $platformFee = $subtotal * 0.002;
+     $total = $subtotal + $platformFee + 50;
+ 
+     return view('checkout', ['cartItems' => $cartItems, 'subtotal' => $subtotal, 'platformFee' => $platformFee, 'total' => $total]);
+ }
+ 
 }

@@ -58,3 +58,4 @@ Route::get('/cart', [ProductController::class, 'showCart'])->name('showCart');
 Route::post('/wishlist/add/{product}', [WishlistController::class, 'add'])->name('wishlist.add');
 Route::post('/wishlist/remove/{product}', [WishlistController::class, 'remove'])->name('wishlist.remove');
 Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist');
+Route::post('/checkout', [ProductController::class, 'checkout'])->name('checkout');

@@ -1,4 +1,4 @@
-<footer style="background-color: #212529" class="p-4   sm:p-6 ">
+<footer style="background-color: #212529" class="p-4  no-print sm:p-6 ">
     <div class="mx-auto max-w-screen-xl">
         <div class="md:flex md:justify-between">
             <div class="mb-6 md:mb-0">

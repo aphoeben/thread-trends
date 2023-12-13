@@ -83,7 +83,12 @@
                         <span class="font-semibold">₱{{ number_format($total, 2) }}</span>
                     </div>
 
-                    <button class="bg-red-800 text-white py-2 px-4 rounded-lg mt-4 w-full">Checkout</button>
+                    <form action="{{ route('checkout') }}" method="POST">
+                        @csrf
+                        <button type="submit"
+                            class="bg-red-800 text-white py-2 px-4 rounded-lg mt-4 w-full">Checkout</button>
+                    </form>
+
                 </div>
 
             </div>
