@@ -201,9 +201,32 @@ class ProductController extends Controller
  public function showCart()
  {
      $cartItems = CartModel::where('user_id', Auth::id())->get();
+     $subtotal = $this->getSubTotal();
+     $platformFee = $subtotal * 0.002;
+     $total = $subtotal + $platformFee + 50;
  
-     // Pass the cart items to your view...
-     return view('cart', ['cartItems' => $cartItems]);
+     // Pass the cart items, subtotal, platform fee, and total to your view...
+     return view('cart', ['cartItems' => $cartItems, 'subtotal' => $subtotal, 'platformFee' => $platformFee, 'total' => $total]);
  }
+ 
+ 
 
+
+ public function getSubTotal()
+ {
+     $cartItems = CartModel::where('user_id', Auth::id())->get();
+     $subtotal = 0;
+ 
+     foreach ($cartItems as $item) {
+         // Check if the associated product is not null
+         if ($item->product) {
+             // Remove any commas in the price and convert it to a float
+             $price = floatval(str_replace(',', '', $item->product->price));
+             $subtotal += $item->quantity * $price;
+         }
+     }
+ 
+     return $subtotal;
+ }
+ 
 }

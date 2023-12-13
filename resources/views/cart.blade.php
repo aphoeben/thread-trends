@@ -1,41 +1,93 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mx-auto px-4 py-6">
-    <h1 class="text-4xl font-bold text-center mb-4">Your Cart</h1>
+<div class="bg-gray-100 h-screen py-8">
+    <div class="container mx-auto px-4">
+        <h1 class="text-2xl font-semibold mb-4">Shopping Cart</h1>
+        <div class="flex flex-col md:flex-row gap-4">
+            <div class="md:w-3/4">
+                <div style="background-color: #212529; color: white;" class="rounded-lg shadow-md p-6 mb-4">
+                    <table class="w-full">
+                        <thead>
+                            <tr>
+                                <th class="text-left font-semibold">Product</th>
+                                <th class="text-left font-semibold">Price</th>
+                                <th class="text-left font-semibold">Quantity</th>
+                                <th class="text-left font-semibold">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach(Cart::getContent() as $item)
+                            <tr>
+                                <td class="py-4" style="color: white;">
+                                    <div class="flex items-center">
+                                        <img class="h-16 w-16 mr-4"
+                                            src="{{ asset('storage/products/' . $item->associatedModel->image) }}"
+                                            alt="{{ $item->name }}">
+                                        <span class="font-semibold">{{ $item->name }} -
+                                            {{$item->associatedModel->section}}</span>
+                                    </div>
+                                </td>
+                                <td class="py-4" style="color: white;">
+                                    ₱{{ number_format($item->associatedModel->price) }}</td>
+                                <td class="py-4" style="color: white;">
+                                    <div class="flex items-center">
+                                        <form action="{{ route('updateCart', $item->id) }}" method="POST">
+                                            @csrf
+                                            <input type="number" name="quantity" class=" text-black w-16 text-center"
+                                                value="{{ $item->quantity }}">
+                                            <button type="submit" class="ml-2">
+                                                <i class="fa fa-save fa-lg text-blue-800"></i>
+                                            </button>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        @foreach(Cart::getContent() as $item)
-        <div style="background-color: #212529;" class="rounded-lg shadow-lg relative product-card">
-            <img src="{{ asset('storage/products/' . $item->associatedModel->image) }}" alt="{{ $item->name }}"
-                class="w-full h-64 object-cover ">
-            <div class="p-4">
-                <h2 class="text-lg font-semibold text-white">{{ $item->name }}</h2>
-                <p class="text-gray-100">{{ $item->associatedModel->description }}</p>
-
-                <div class="flex justify-between items-center mt-4">
-                    <span style="color: #8d0606;" class="text-xl font-bold">₱{{ $item->price }}</span>
-                    <div class="space-x-2">
-                        <form action="{{ route('updateCart', $item->id) }}" method="POST">
-                            @csrf
-                            <input type="number" name="quantity" value="{{ $item->quantity }}">
-                            <button type="submit"
-                                class="bg-blue-800 hover:bg-blue-900 active:bg-blue-700 text-white px-4 py-2 rounded">
-                                Update Quantity
-                            </button>
-                        </form>
-                        <form action="{{ route('removeFromCart', $item->id) }}" method="POST">
-                            @csrf
-                            <button type="submit"
-                                class="bg-red-800 hover:bg-red-900 active:bg-red-700 text-white px-4 py-2 rounded">
-                                Remove from Cart
-                            </button>
-                        </form>
-                    </div>
+                                        </form>
+                                    </div>
+                                </td>
+                                <td class="py-4" style="color: white;">
+                                    ₱{{ number_format((float)str_replace(',', '', $item->associatedModel->price) * (int)$item->quantity, 2) }}
+                                </td>
+                                <td class="py-4" style="color: white;">
+                                    <form action="{{ route('removeFromCart', $item->id) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" style="color: #8d0606;">
+                                            <i class="fa fa-trash "></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
+
+            </div>
+            <div class="md:w-1/4">
+                <div style="background-color: #212529; color: white;" class="rounded-lg shadow-md p-6">
+                    <h2 class="text-lg font-semibold mb-4">Summary</h2>
+
+                    <div class="flex justify-between mb-2">
+                        <span>Subtotal</span>
+                        <span>₱{{ number_format($subtotal, 2) }}</span>
+                    </div>
+                    <div class="flex justify-between mb-2">
+                        <span>Platform fee (0.2%)</span>
+                        <span>₱{{ number_format($platformFee, 2) }}</span>
+                    </div>
+                    <div class="flex justify-between mb-2">
+                        <span>Shipping</span>
+                        <span>₱50</span>
+                    </div>
+                    <hr class="my-2">
+                    <div class="flex justify-between mb-2">
+                        <span class="font-semibold">Total</span>
+                        <span class="font-semibold">₱{{ number_format($total, 2) }}</span>
+                    </div>
+
+                    <button class="bg-red-800 text-white py-2 px-4 rounded-lg mt-4 w-full">Checkout</button>
+                </div>
+
             </div>
         </div>
-        @endforeach
     </div>
 </div>
 @endsection

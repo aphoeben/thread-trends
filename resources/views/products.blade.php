@@ -36,10 +36,13 @@
                 class="w-full h-64 object-cover ">
             <div class="p-4">
                 <h2 class="text-lg font-semibold text-white">{{ $product->name }}</h2>
+                <p class="text-white">
+                    {{ $product->section == 'W' ? "Women's" : ($product->section == 'M' ? "Men's" : '') }}
+                </p>
                 <p class="text-gray-100">{{ $product->description }}</p>
 
                 <div class="flex justify-between items-center mt-4">
-                    <span style="color: #8d0606;" class="text-xl font-bold">₱{{ $product->price }}</span>
+                    <span style="color: #8d0606;" class="text-xl font-bold">₱{{ number_format($product->price) }}</span>
                     <div class="space-x-2">
                         <form action="{{ route('addToCart', $product->id) }}" method="POST">
                             @csrf
