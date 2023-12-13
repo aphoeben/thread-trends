@@ -28,7 +28,7 @@
                     <x-nav-link class="text-white" href="/inventory">
                         {{ __('Inventory') }}
                     </x-nav-link>
-                    <x-nav-link class="text-white" href="/orders">
+                    <x-nav-link class="text-white" href="{{ route('admin.orders') }}">
                         {{ __('Orders') }}
                     </x-nav-link>
                     <!-- Add more admin links here -->

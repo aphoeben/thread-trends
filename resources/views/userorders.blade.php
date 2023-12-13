@@ -67,8 +67,10 @@
 
                             <td class="pb-0">Status</td>
                             <td
-                                class="pb-0 {{ $order->status == 'pending' ? 'text-yellow-600' : ($order->status == 'completed' ? 'text-green-600' : '') }} uppercase">
-                                {{ $order->status }}</td>
+                                class="pb-0 uppercase {{ $order->status == 'pending' ? 'text-yellow-600' : ($order->status == 'completed' ? 'text-green-600' : ($order->status == 'cancelled' ? 'text-red-600' : '')) }}">
+                                {{ $order->status }}
+                            </td>
+
                         </tr>
 
                     </tbody>
