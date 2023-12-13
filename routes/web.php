@@ -16,19 +16,34 @@ use App\Http\Controllers\UserController;
 
 // Guest and Authenticated User routes
 Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+    $users = User::all();
+    $products = Product::all(); // Retrieve products data here
+    return view('users', ['users' => $users, 'products' => $products]);
+})->name('dashboard');
 Route::get('/about', function () {
     return view('about');
 })->name('about');
 
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/men', [ProductController::class, 'showMen']);
+Route::get('/women', [ProductController::class, 'showWomen']);
+
+Route::get('/customer/contact', [ContactController::class, 'showForm'])->name('contact.form');
+Route::post('/customer/contact', [ContactController::class, 'submitForm'])->name('contact.submit');
+
 // Customer routes
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
-    Route::get('/dashboard', function () {
-        $users = User::all();
-        $products = Product::all(); // Retrieve products data here
-        return view('users', ['users' => $users, 'products' => $products]);
-    })->name('dashboard');
+
+    Route::post('/cart/add/{id}', [ProductController::class, 'addToCart'])->name('addToCart');
+Route::post('/cart/update/{id}', [ProductController::class, 'updateCart'])->name('updateCart');
+Route::post('/cart/remove/{id}', [ProductController::class, 'removeFromCart'])->name('removeFromCart');
+Route::get('/cart', [ProductController::class, 'showCart'])->name('showCart');
+Route::post('/wishlist/add/{product}', [WishlistController::class, 'add'])->name('wishlist.add');
+Route::post('/wishlist/remove/{product}', [WishlistController::class, 'remove'])->name('wishlist.remove');
+Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist');
+Route::post('/checkout', [ProductController::class, 'checkout'])->name('checkout');
+Route::get('/userorders', [OrderController::class, 'userOrders'])->name('userorders');
+
 });
 
 // Admin routes
@@ -62,22 +77,7 @@ Route::put('/users/{user}', [UserController::class, 'update'])->name('users.upda
 
 
 
+
 });
 
 Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/men', [ProductController::class, 'showMen']);
-Route::get('/women', [ProductController::class, 'showWomen']);
-Route::post('/cart/add/{id}', [ProductController::class, 'addToCart'])->name('addToCart');
-Route::post('/cart/update/{id}', [ProductController::class, 'updateCart'])->name('updateCart');
-Route::post('/cart/remove/{id}', [ProductController::class, 'removeFromCart'])->name('removeFromCart');
-Route::get('/cart', [ProductController::class, 'showCart'])->name('showCart');
-Route::post('/wishlist/add/{product}', [WishlistController::class, 'add'])->name('wishlist.add');
-Route::post('/wishlist/remove/{product}', [WishlistController::class, 'remove'])->name('wishlist.remove');
-Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist');
-Route::post('/checkout', [ProductController::class, 'checkout'])->name('checkout');
-Route::get('/userorders', [OrderController::class, 'userOrders'])->name('userorders');
-
-Route::get('/customer/contact', [ContactController::class, 'showForm'])->name('contact.form');
-Route::post('/customer/contact', [ContactController::class, 'submitForm'])->name('contact.submit');
