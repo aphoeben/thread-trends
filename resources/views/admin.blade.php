@@ -45,7 +45,7 @@
                         </path>
                     </svg></div>
                 <div class="px-4 text-gray-700">
-                    <h3 class="text-sm tracking-wider">User Messages</h3>
+                    <h3 class="text-sm tracking-wider">Customer Messages</h3>
                     <p class="text-3xl">{{ \App\Models\Contact::count() }}</p>
                 </div>
             </div>
