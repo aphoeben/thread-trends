@@ -32,13 +32,6 @@
                 <x-input id="password_confirmation" class="block mt-1 w-full" type="password"
                     name="password_confirmation" required autocomplete="new-password" />
             </div>
-            <div class="mt-4">
-                <x-label for="is_admin" value="{{ __('User Role') }}" />
-                <select id="is_admin" name="is_admin" class="block mt-1 w-full">
-                    <option value="0">Customer</option>
-                    <option value="1">Admin</option>
-                </select>
-            </div>
 
 
 

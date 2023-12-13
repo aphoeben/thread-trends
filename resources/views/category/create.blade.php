@@ -27,14 +27,14 @@
                         </div>
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label for="price">Price:</label>
                             <input type="text" name="price" id="price" class="form-control">
                         </div>
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label for="section">Section (W or M):</label>
                             <select name="section" id="section" class="form-control">
@@ -44,14 +44,8 @@
                         </div>
                     </div>
 
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <label for="qty">Quantity:</label>
-                            <input type="text" name="qty" id="qty" class="form-control">
-                        </div>
-                    </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="form-group">
                             <label for="image">Image:</label>
                             <input type="file" name="image" id="image" class="form-control">

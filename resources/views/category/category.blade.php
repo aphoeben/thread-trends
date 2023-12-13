@@ -18,7 +18,6 @@
                     <p><strong>Description:</strong> {{ $item->description }}</p>
                     <p><strong>Price:</strong> {{ $item->price }}</p>
                     <p><strong>Section:</strong> {{ $item->section }}</p>
-                    <p><strong>Quantity:</strong> {{ $item->qty }}</p>
 
                     <div class="mt-3">
                         <a href="/category/edit/{{ $item->id }}" class="btn btn-success">Edit</a>

@@ -39,7 +39,7 @@
                                     value="{{ $item->price }}" required>
                             </div>
 
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-6">
                                 <label for="section">Section (W or M):</label>
                                 <select name="section" id="section" class="form-control" required>
                                     <option value="W" {{ $item->section == 'W' ? 'selected' : '' }}>W</option>
@@ -48,11 +48,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="qty">Quantity:</label>
-                            <input type="text" name="qty" id="qty" class="form-control" value="{{ $item->qty }}"
-                                required>
-                        </div>
+
 
                         <div class="form-group">
                             <label for="image">Image:</label>

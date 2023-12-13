@@ -26,10 +26,13 @@
                         {{ __('Admin Dashboard') }}
                     </x-nav-link>
                     <x-nav-link class="text-white" href="/inventory">
-                        {{ __('Inventory') }}
+                        {{ __('Products') }}
                     </x-nav-link>
                     <x-nav-link class="text-white" href="{{ route('admin.orders') }}">
                         {{ __('Orders') }}
+                    </x-nav-link>
+                    <x-nav-link class="text-white" href="{{ route('users.index') }}">
+                        {{ __('Users') }}
                     </x-nav-link>
                     <x-nav-link class="text-white" href="{{ route('admin.messages') }}">
                         {{ __('Customer Messages') }}

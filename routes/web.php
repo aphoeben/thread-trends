@@ -8,6 +8,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\UserController;
+
 
 
 
@@ -55,6 +57,9 @@ Route::group(['middleware' => ['auth:sanctum', 'is_admin']], function () {
         Route::get('/orders', [OrderController::class, 'adminOrders'])->name('admin.orders');
     Route::post('/orders/complete/{id}', [OrderController::class, 'complete'])->name('admin.orders.complete');
     Route::post('/orders/cancel/{id}', [OrderController::class, 'cancel'])->name('admin.orders.cancel');
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
+
 
 
 });
