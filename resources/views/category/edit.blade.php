@@ -2,10 +2,10 @@
 
 @section('content')
 
-<div class="container mt-4">
+<div class="container my-4">
     <div class="card shadow">
         <div class="card-header bg-dark text-white">
-            <h1 class="mb-0">Edit Category</h1>
+            <h4 class="mb-0">Edit Product Details</h4>
         </div>
 
         <div class="card-body">

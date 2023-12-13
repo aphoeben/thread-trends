@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="container mt-4" style="margin-bottom: 7rem;">
+<div class="container my-4" style="margin-bottom: 7rem;">
     <div class="card shadow">
         <div class="card-header bg-dark text-white">
             <h4 class="mb-0">Add Product</h4>
