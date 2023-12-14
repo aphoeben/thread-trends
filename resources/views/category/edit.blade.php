@@ -3,6 +3,11 @@
 @section('content')
 
 <div class="container my-4">
+    @if($errors->any())
+    <div class="alert alert-danger">
+        {{ $errors->first() }}
+    </div>
+    @endif
     <div class="card shadow">
         <div class="card-header bg-dark text-white">
             <h4 class="mb-0">Edit Product Details</h4>
@@ -26,24 +31,28 @@
                                 required>
                         </div>
 
+
+
                         <div class="form-group">
                             <label for="description">Description:</label>
-                            <input type="text" name="description" id="description" class="form-control"
-                                value="{{ $item->description }}" required>
+                            <textarea name="description" id="description" class="form-control" rows="5"
+                                required>{{ $item->description }}</textarea>
                         </div>
+
 
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="price">Price:</label>
-                                <input type="text" name="price" id="price" class="form-control"
+                                <input type="number" name="price" id="price" class="form-control"
                                     value="{{ $item->price }}" required>
                             </div>
 
                             <div class="form-group col-md-6">
-                                <label for="section">Section (W or M):</label>
+                                <label for="section">Section (M or W):</label>
                                 <select name="section" id="section" class="form-control" required>
-                                    <option value="W" {{ $item->section == 'W' ? 'selected' : '' }}>W</option>
                                     <option value="M" {{ $item->section == 'M' ? 'selected' : '' }}>M</option>
+                                    <option value="W" {{ $item->section == 'W' ? 'selected' : '' }}>W</option>
+
                                 </select>
                             </div>
                         </div>

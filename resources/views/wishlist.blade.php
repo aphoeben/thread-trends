@@ -17,8 +17,10 @@
                         <i class="fa fa-trash fa-lg"></i>
                     </button>
                 </form>
-                <img src="{{ asset('storage/products/' . $product->image) }}" alt="{{ $product->name }}"
-                    class="w-full h-64 object-cover">
+                <div style="background-color: #ffffff;">
+                    <img src="{{ asset('storage/products/' . $product->image) }}" alt="{{ $product->name }}"
+                        class="w-full h-64 object-fit-contain object-center">
+                </div>
                 <div class="p-4">
                     <h2 class="text-lg font-semibold text-white">{{ $product->name }}</h2>
                     <p class="text-white">

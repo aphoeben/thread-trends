@@ -76,8 +76,14 @@
                             </li>
                         </ul>
                     </div>
+
                     <div class="card h-fit max-w-6xl p-5 shadow-md md:p-12" id="form">
-                        <h2 class="mb-4 text-2xl font-bold">Ready to Get Started?</h2>
+                        @if (session('message'))
+                        <div class="alert alert-success">
+                            {{ session('message') }}
+                        </div>
+                        @endif
+                        <h2 class="mb-4 text-2xl font-bold">Get in Touch</h2>
                         <form id="contactForm" method="post" action="{{ route('contact.submit') }}">
                             @csrf
                             <div class="mb-6">

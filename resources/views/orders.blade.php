@@ -29,7 +29,15 @@
                     <td scope="row">{{ $order->id }}</td>
                     <td>{{ $order->user_id }}</td>
                     <td>₱{{ number_format($order->total_price,2) }}</td>
-                    <td> {{ $order->status }}</td>
+                    <td>
+                        @if($order->status == 'completed')
+                        <span class="text-green-600 font-semibold ">{{ strtoupper($order->status) }}</span>
+                        @elseif($order->status == 'cancelled')
+                        <span class="text-red-600 font-semibold ">{{ strtoupper($order->status) }}</span>
+                        @else
+                        <span class="text-orange-600 font-semibold ">{{ strtoupper($order->status) }}</span>
+                        @endif
+                    </td>
                     <td> {{ $order->created_at }}</td>
                     <td>
                         <form method="POST" action="{{ url('orders/complete/'.$order->id) }}">

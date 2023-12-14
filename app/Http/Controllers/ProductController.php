@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Cart as CartModel; // Use the Cart model
 use App\Models\OrderItem;
 use App\Models\Order;
+use Illuminate\Support\Facades\Log;
 
 
 
@@ -31,60 +32,77 @@ class ProductController extends Controller
     }
 
   // Saves the record
-public function save(Request $request)
-{
-    $this->validate(request(), [
-        'name' => 'required|min:1|max:255',
-        'description' => 'required|min:1|max:255',
-        'price' => 'required|min:1|max:255',
-        'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
-    ]);
-
-    $file = $request->file('image');
-    $extension = $file->getClientOriginalExtension();
-    $fileName = time() . '.' . $extension;
-    $file->move('storage/products', $fileName);
-
-    $category = new Product;
-    $category->name = $request->name;
-    $category->description = $request->description;
-    $category->price = $request->price;
-    $category->image = $fileName;
-    $category->section = $request->section;
-    $category->qty = $request->qty;
-    $category->save();
-
-    return redirect('/category')->with('status', 'Item added.');
-}
-
+  public function save(Request $request)
+  {
+      try {
+          $this->validate(request(), [
+              'name' => 'required|min:1|max:255',
+              'description' => 'required|min:1|max:255',
+              'price' => 'required|min:1|max:255',
+              'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048'
+          ]);
+  
+          $file = $request->file('image');
+          $extension = $file->getClientOriginalExtension();
+          $fileName = time() . '.' . $extension;
+          $file->move('storage/products', $fileName);
+  
+          $category = new Product;
+          $category->name = $request->name;
+          $category->description = $request->description;
+          $category->price = $request->price;
+          $category->image = $fileName;
+          $category->section = $request->section;
+          $category->qty = $request->qty;
+          $category->save();
+  
+          return redirect('/category')->with('status', 'Item added.');
+      } catch (\Exception $e) {
+          // Log the error message
+          Log::error($e->getMessage());
+  
+          // Redirect back with error message
+          return redirect()->back()->withErrors(['error' => 'There was an error saving the product. Please try again.']);
+      }
+  }
+  
 
     // Edits the record
     public function update(Request $request, $id)
     {
-        $category = Product::find($id);
-        $category->name = $request->name;
-        $category->description = $request->description;
-        $category->price = $request->price;
-        $category->section = $request->section;
-        $category->qty = $request->qty;
-        if ($request->hasfile('image')) {
-            $destination = 'storage/products' . $category->image;
-
-            if (File::exists($destination)) {
-                File::delete($destination);
+        try {
+            $category = Product::find($id);
+            $category->name = $request->name;
+            $category->description = $request->description;
+            $category->price = $request->price;
+            $category->section = $request->section;
+            $category->qty = $request->qty;
+            if ($request->hasfile('image')) {
+                $destination = 'storage/products' . $category->image;
+    
+                if (File::exists($destination)) {
+                    File::delete($destination);
+                }
+    
+                $file = $request->file('image');
+                $extension = $file->getClientOriginalExtension();
+                $filename = time() . 'edited' . '.' . $extension;
+                $file->move('storage/products', $filename);
+                $category->image = $filename;
             }
-
-            $file = $request->file('image');
-            $extension = $file->getClientOriginalExtension();
-            $filename = time() . 'edited' . '.' . $extension;
-            $file->move('storage/products', $filename);
-            $category->image = $filename;
+    
+            $category->update();
+    
+            return redirect('/category')->with('status', 'Item updated.');
+        } catch (\Exception $e) {
+            // Log the error message
+            Log::error($e->getMessage());
+    
+            // Redirect back with error message
+            return redirect()->back()->withErrors(['error' => 'There was an error updating the product. Please try again.']);
         }
-
-        $category->update();
-
-        return redirect('/category')->with('status', 'Item updated.');
     }
+    
 
     // Delete the record
     public function destroy($id)

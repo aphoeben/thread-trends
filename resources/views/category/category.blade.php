@@ -20,8 +20,9 @@
                     <p><strong>Section:</strong> {{ $item->section }}</p>
 
                     <div class="mt-3">
-                        <a href="/category/edit/{{ $item->id }}" class="btn btn-success">Edit</a>
                         <a href="{{ route('category.index') }}" class="btn btn-secondary">Back</a>
+                        <a href="/category/edit/{{ $item->id }}" class="btn btn-success">Edit</a>
+
                     </div>
                 </div>
             </div>

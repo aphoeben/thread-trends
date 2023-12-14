@@ -9,12 +9,16 @@ use Illuminate\Support\Facades\Auth;
 class WishlistController extends Controller
 {
     public function add(Request $request, $productId)
-{
-    $user = Auth::user();
-    $user->wishlist()->attach($productId);
-    return back();
-}
-
+    {
+        $user = Auth::user();
+        if ($user->wishlist()->where('product_id', $productId)->exists()) {
+            return back()->with('status', 'This item is already in your wishlist!');
+        }
+        $user->wishlist()->syncWithoutDetaching($productId);
+        return back()->with('success', 'Item added to wishlist!');
+    }
+    
+    
 public function remove(Request $request, $productId)
 {
     $user = Auth::user();

@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container mx-auto px-4 py-6">
+
     <div class="relative flex items-center ">
         <div class="mb-6 max-w-3xl text-center sm:text-center md:mx-auto md:mb-12">
             <p class="text-base font-semibold uppercase tracking-wide text-red-600 ">
@@ -23,10 +24,21 @@
             </a>
         </div>
     </div>
+    @if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+    @endif
 
 
+    @if (session('status'))
+    <div class="alert alert-danger">
+        {{ session('status') }}
+    </div>
+    @endif
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
 
         @foreach($products as $product)
         <div style="background-color: #212529;" class="rounded-lg shadow-lg relative product-card">
@@ -39,8 +51,10 @@
                     </svg>
                 </button>
             </form>
-            <img src="{{ asset('storage/products/' . $product->image) }}" alt="{{ $product->name }}"
-                class="w-full h-64 object-cover ">
+            <div style="background-color: #ffffff;">
+                <img src="{{ asset('storage/products/' . $product->image) }}" alt="{{ $product->name }}"
+                    class="w-full h-64 object-fit-contain object-center">
+            </div>
             <div class="p-4">
                 <h2 class="text-lg font-semibold text-white">{{ $product->name }}</h2>
                 <p class="text-white">
