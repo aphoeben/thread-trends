@@ -15,7 +15,7 @@
         <table class="table table-striped">
             <thead class="table-dark">
                 <tr>
-                    <th scope="col">Customer Name</th>
+                    <th scope="col">Name</th>
                     <th scope="col">Email</th>
                     <th scope="col">Message</th>
                 </tr>
